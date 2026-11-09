@@ -1,0 +1,49 @@
+# Python environments and caches
+venv/
+.venv/
+env/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+*.egg-info/
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.jks
+*.keystore
+key.properties
+
+# Flutter and Dart generated files
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+build/
+coverage/
+**/android/.gradle/
+**/android/.kotlin/
+**/android/local.properties
+**/android/captures/
+**/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java
+
+# Editor and operating system files
+.idea/
+.vscode/
+*.iml
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Logs and local connection notes
+*.log
+/kodlar .txt

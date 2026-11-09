@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Öğrenci Video Asistanı</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 350px;
+      min-height: 560px;
+      margin: 0;
+      padding: 22px 24px 18px;
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: #111827;
+      background:
+        linear-gradient(145deg, #fffaf6 0%, #fffdfb 34%, #ddecff 74%, #fff7f1 100%);
+    }
+
+    h3 {
+      margin: 8px 0 10px;
+      text-align: center;
+      color: #111;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 22px;
+      line-height: 1.2;
+    }
+
+    p {
+      margin: 0;
+      font-size: 13px;
+      line-height: 1.45;
+      color: #6e7580;
+    }
+
+    .intro {
+      margin-bottom: 28px;
+      text-align: center;
+    }
+
+    #authBox {
+      margin-top: 8px;
+    }
+
+    input {
+      width: 100%;
+      margin-top: 16px;
+      padding: 10px 4px 11px;
+      border: 0;
+      border-bottom: 1.2px solid #9ea4aa;
+      outline: none;
+      background: transparent;
+      color: #111827;
+      text-align: center;
+      font-size: 15px;
+      letter-spacing: 0;
+    }
+
+    input::placeholder {
+      color: #8a929c;
+    }
+
+    input:focus {
+      border-bottom-color: #596473;
+    }
+
+    button {
+      width: 100%;
+      min-height: 44px;
+      margin-top: 10px;
+      padding: 10px 16px;
+      border: 0;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0;
+      transition: transform 120ms ease, box-shadow 120ms ease, opacity 120ms ease;
+    }
+
+    button:hover:not(:disabled) {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 24px rgba(55, 65, 81, 0.10);
+    }
+
+    button:disabled {
+      cursor: default;
+      opacity: 0.58;
+    }
+
+    #loginBtn,
+    #registerBtn,
+    #showLoginBtn,
+    #analyzeBtn {
+      background: rgba(255, 255, 255, 0.92);
+      color: #111;
+      box-shadow: 0 8px 22px rgba(31, 41, 55, 0.08);
+    }
+
+    .secondary-btn {
+      background: rgba(255, 255, 255, 0.58);
+      color: #596473;
+      box-shadow: none;
+    }
+
+    #loggedInBox {
+      margin-bottom: 16px;
+      text-align: center;
+    }
+
+    #userInfo {
+      margin: 0 0 12px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.56);
+      color: #374151;
+      overflow-wrap: anywhere;
+    }
+
+    #logoutBtn {
+      background: rgba(17, 24, 39, 0.10);
+      color: #374151;
+      box-shadow: none;
+    }
+
+    #analyzeBtn {
+      margin-top: 20px;
+    }
+
+    #startBtn {
+      background: rgba(233, 250, 240, 0.96);
+      color: #17643b;
+      box-shadow: 0 8px 20px rgba(22, 101, 52, 0.08);
+    }
+
+    #stopBtn {
+      background: rgba(255, 236, 234, 0.96);
+      color: #aa2e23;
+      box-shadow: 0 8px 20px rgba(185, 28, 28, 0.08);
+    }
+
+    #status {
+      min-height: 40px;
+      margin-top: 16px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.72);
+      color: #2f3846;
+      font-size: 12px;
+      line-height: 1.45;
+      text-align: center;
+      white-space: pre-line;
+      box-shadow: 0 8px 24px rgba(55, 65, 81, 0.06);
+    }
+
+    #results {
+      max-height: 190px;
+      margin-top: 12px;
+      padding-right: 2px;
+      overflow-y: auto;
+      font-size: 12px;
+    }
+
+    #results > p {
+      text-align: center;
+      color: #4b5563;
+    }
+
+    .segment-item {
+      margin-top: 8px;
+      padding: 10px 11px;
+      border-left: 3px solid #7aa8db;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.76);
+      box-shadow: 0 8px 18px rgba(55, 65, 81, 0.06);
+    }
+
+    .segment-time {
+      color: #111827;
+      font-weight: 800;
+    }
+
+    .segment-chapter {
+      margin-top: 4px;
+      color: #667085;
+      line-height: 1.35;
+    }
+  </style>
+</head>
+<body>
+  <h3>Öğrenci Video Asistanı</h3>
+
+  <p class="intro">YouTube videolarındaki gereksiz kısımları analiz eder ve otomatik atlatır.</p>
+
+  <div id="authBox">
+    <div id="loggedOutBox">
+      <input id="nameInput" type="text" placeholder="Ad" style="display:none;" />
+      <input id="emailInput" type="email" placeholder="E-mail" />
+      <input id="passwordInput" type="password" placeholder="Şifre" />
+      <button id="loginBtn">Giriş Yap</button>
+      <button id="registerBtn" class="secondary-btn">Kayıt Ol</button>
+      <button id="showLoginBtn" class="secondary-btn" style="display:none;">Girişe Dön</button>
+    </div>
+
+    <div id="loggedInBox" style="display:none;">
+      <p id="userInfo"></p>
+      <button id="logoutBtn">Çıkış Yap</button>
+    </div>
+  </div>
+
+  <button id="analyzeBtn" style="display:none;">Analizi Başlat</button>
+  <button id="startBtn">Otomatik Atlatmayı Başlat</button>
+  <button id="stopBtn">Atlatmayı Durdur</button>
+
+  <div id="status">Hazır.</div>
+  <div id="results"></div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

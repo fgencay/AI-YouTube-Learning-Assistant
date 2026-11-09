@@ -1,0 +1,42 @@
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"
+}
+
+android {
+    namespace = "com.example.ogrenci_video_asistani"
+    compileSdk = flutter.compileSdkVersion
+    ndkVersion = flutter.ndkVersion
+
+    defaultConfig {
+        applicationId = "com.example.ogrenci_video_asistani"
+        minSdk = flutter.minSdkVersion
+        targetSdk = flutter.targetSdkVersion
+        versionCode = flutter.versionCode
+        versionName = flutter.versionName
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+}
+
+flutter {
+    source = "../.."
+}
+
+tasks.register("copyDebugApkForFlutterTool", Copy) {
+    from("$buildDir/outputs/flutter-apk")
+    include("*.apk")
+    into("${rootProject.projectDir}/../build/app/outputs/flutter-apk")
+}
+
+tasks.matching { task -> task.name == "assembleDebug" }.configureEach {
+    finalizedBy("copyDebugApkForFlutterTool")
+}
